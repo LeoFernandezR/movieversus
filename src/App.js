@@ -2,7 +2,8 @@ import React from 'react'
 import './App.scss'
 
 import Header from './components/Header'
-import Autocomplete from './components/Autocomplete'
+import Movie from './components/Movie'
+import Tutorial from './components/Tutorial'
 
 function App() {
   return (
@@ -10,9 +11,10 @@ function App() {
       <Header />
 			<div className="container">
 				<div className="columns">
-					<Autocomplete />
-					<Autocomplete />
+					<Movie />
+					<Movie />
 				</div>
+				<Tutorial/>
 			</div>
     </>
   )
