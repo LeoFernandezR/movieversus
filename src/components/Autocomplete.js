@@ -21,7 +21,7 @@ export default function Autocomplete() {
         setMovieList([])
         return
       }
-      setMovieList(debouncedText)
+      setMovieList(response.data.Search)
     }
 
     fetchMovieList(debouncedText)
