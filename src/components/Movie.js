@@ -5,7 +5,7 @@ import Summary from './Summary'
 
 export default function Movie() {
   return (
-    <div className="column">
+    <div className='column'>
       <Autocomplete />
       <Summary />
     </div>
