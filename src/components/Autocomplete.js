@@ -1,13 +1,17 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import useDebounce from '../hooks/useDebounce'
 
-export default function Autocomplete() {
-  const [searchValue, setSearchValue] = useState('')
+export default function Autocomplete({ fetchMovieData, showSummary }) {
   const [movieList, setMovieList] = useState([])
-  const debouncedText = useDebounce(searchValue, 500)
-  const [dropdownActive, setDropdownActive] = useState(false)
+  const [movieSearch, setMovieSearch] = useState('')
+  const [inputValue, setInputValue] = useState('')
+  const [showDropdown, setShowDropdown] = useState(false)
+  const debouncedMovieSearch = useDebounce(movieSearch, 500)
 
   useEffect(() => {
     const fetchMovieList = async (searchTerm) => {
@@ -22,36 +26,55 @@ export default function Autocomplete() {
         return
       }
       setMovieList(response.data.Search)
+      setShowDropdown(true)
     }
-
-    fetchMovieList(debouncedText)
-  }, [debouncedText])
+    if (debouncedMovieSearch !== '') {
+      fetchMovieList(debouncedMovieSearch)
+    }
+    setShowDropdown(false)
+  }, [debouncedMovieSearch])
 
   const onInput = (e) => {
-    setSearchValue(e.target.value)
-    if (movieList.length) {
-      setDropdownActive(true)
-    }
-    setDropdownActive(false)
-    return
+    setMovieSearch(e.target.value)
+    setInputValue(e.target.value)
   }
-
   return (
-    <div>
-      <label className='has-text-weight-bold'>Search</label>
-      <input type='text' className='input' onChange={onInput} />
-      <div className={`dropdown ${dropdownActive && 'is-active'}`}>
-        <div className='dropdown-content results'>
-          {movieList.map((movie) => {
-            const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster
+    <div className='autocomplete'>
+      <div className={`dropdown ${showDropdown && 'is-active'}`}>
+        <div className='dropdown-trigger'>
+          <label htmlFor='autocomplete' className='has-text-weight-bold'>
+            Search
+          </label>
+          <input
+            value={inputValue}
+            type='text'
+            className='input'
+            name='autocomplete'
+            onInput={onInput}
+          />
+        </div>
+        <div className='dropdown-menu'>
+          <div className='dropdown-content results'>
+            {movieList.map((movie) => {
+              const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster
 
-            return (
-              <a className='dropdown-item'>
-                <img src={imgSrc} alt='' />
-                {` ${movie.Title}`}
-              </a>
-            )
-          })}
+              return (
+                <a
+                  key={movie.imdbID}
+                  className='dropdown-item'
+                  onClick={() => {
+                    fetchMovieData(movie.imdbID)
+                    showSummary(true)
+                    setShowDropdown(false)
+                    setInputValue(movie.Title)
+                  }}
+                >
+                  <img src={imgSrc} />
+                  {movie.Title}
+                </a>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>
