@@ -1,15 +1,15 @@
 @charset "utf-8";
 
 // Import a Google Font
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
 // Set your brand colors
-$purple: #8a4d76;
-$pink: #fa7c91;
+$turquoise: #00ccb8;
+$pink: #f26989;
 
 // Update Bulma's global variables
-$family-sans-serif: 'Nunito', sans-serif;
-$primary: $purple;
+$family-sans-serif: 'Noto Sans', sans-serif;
+$primary: $turquoise;
 $link: $pink;
 
 @import '../node_modules/bulma/bulma.sass';
