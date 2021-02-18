@@ -3,10 +3,14 @@ import axios from 'axios'
 
 import Autocomplete from './Autocomplete'
 import Summary from './Summary'
+import { structureData } from '../utils/movies'
 
-export default function Movie() {
+export default function Movie({
+  setMovieData,
+  movieData,
+  achievementsResults,
+}) {
   const [movieID, setMovieID] = useState('')
-  const [movieData, setMovieData] = useState({})
   const [showSummary, setShowSummary] = useState(false)
 
   useEffect(() => {
@@ -21,7 +25,7 @@ export default function Movie() {
         setMovieData({})
         return
       }
-      setMovieData(response.data)
+      setMovieData(structureData(response.data))
     }
     if (movieID !== '') {
       fetchMovieData(movieID)
@@ -31,7 +35,12 @@ export default function Movie() {
   return (
     <div className='column'>
       <Autocomplete fetchMovieData={setMovieID} showSummary={setShowSummary} />
-      {showSummary && <Summary movieData={movieData} />}
+      {showSummary && (
+        <Summary
+          movieData={movieData}
+          achievementsResults={achievementsResults}
+        />
+      )}
     </div>
   )
 }

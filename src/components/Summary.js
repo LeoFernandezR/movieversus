@@ -2,43 +2,8 @@ import React from 'react'
 
 import Achievement from './Achievement'
 
-export default function Summary({ movieData }) {
-  const {
-    Poster,
-    Title,
-    Genre,
-    Plot,
-    Awards,
-    BoxOffice,
-    Metascore,
-    imdbRating,
-    imdbVotes,
-  } = movieData
-
-  const achievements = [
-    {
-      title: 'Awards',
-      content: Awards,
-    },
-    {
-      title: 'Box Office',
-      content: BoxOffice,
-    },
-    {
-      title: 'Metascore',
-      content: Metascore,
-    },
-    {
-      title: 'IMDB Rating',
-      content: imdbRating,
-    },
-    {
-      title: 'IMDB Votes',
-      content: imdbVotes,
-    },
-  ]
-
-  console.log(movieData)
+export default function Summary({ movieData, achievementsResults }) {
+  const { id, Poster, Title, Genre, Plot, Achievements = [] } = movieData || {}
 
   return (
     <div className='summary'>
@@ -55,11 +20,16 @@ export default function Summary({ movieData }) {
         </div>
       </article>
       <div className='movie-achievements'>
-        {achievements.map((achievementData) => {
+        {Achievements.map((achievement, index) => {
+          const achievementResult = achievementsResults[index]
+
+          const { winnerId = null } = achievementResult || {}
+
           return (
             <Achievement
-              key={achievementData.title}
-              achievementData={achievementData}
+              key={achievement.title}
+              achievementData={achievement}
+              winner={winnerId === id || winnerId === null}
             />
           )
         })}
