@@ -33,3 +33,4 @@ Project is created with:
 - ReactJS
 - SASS
 - Bulma
+- IMDB API
