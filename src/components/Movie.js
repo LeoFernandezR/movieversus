@@ -30,6 +30,7 @@ export default function Movie({
     if (movieID !== '') {
       fetchMovieData(movieID)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieID])
 
   return (

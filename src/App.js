@@ -26,6 +26,7 @@ function App() {
   }
   useEffect(() => {
     setShowWarning(areSameMovie())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstMovieData, secondMovieData])
   return (
     <>
