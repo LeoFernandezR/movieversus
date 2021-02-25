@@ -17,7 +17,7 @@ export default function Autocomplete({ fetchMovieData, showSummary }) {
     const fetchMovieList = async (searchTerm) => {
       const response = await axios.get('http://www.omdbapi.com/', {
         params: {
-          apikey: 'a288bc27',
+          apikey: process.env.REACT_APP_OMDB_API_KEY,
           s: searchTerm,
         },
       })

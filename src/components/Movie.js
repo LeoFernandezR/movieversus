@@ -17,7 +17,7 @@ export default function Movie({
     const fetchMovieData = async (movieID) => {
       const response = await axios.get('http://www.omdbapi.com/', {
         params: {
-          apikey: 'a288bc27',
+          apikey: process.env.REACT_APP_OMDB_API_KEY,
           i: movieID,
         },
       })
