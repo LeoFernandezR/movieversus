@@ -8,6 +8,8 @@
 
 ## Setup
 
+Live on: https://movieversus.netlify.app/
+
 To run this project, install it locally using npm:
 
 ```
